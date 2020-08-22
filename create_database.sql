@@ -107,25 +107,25 @@ CREATE INDEX likes_created_at_idx ON likes(created_at);
 
 DROP TABLE IF EXISTS posts_threads_likes CASCADE;
 CREATE TABLE IF NOT EXISTS posts_threads_likes (
-    thread_id INT NOT NULL,
+    post_thread_id INT NOT NULL,
     CONSTRAINT posts_threads_likes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT posts_threads_likes_thread_id_fk FOREIGN KEY (thread_id) REFERENCES posts_threads(id) ON DELETE CASCADE
+    CONSTRAINT posts_threads_likes_post_thread_id_fk FOREIGN KEY (post_thread_id) REFERENCES posts_threads(id) ON DELETE CASCADE
 ) INHERITS (likes);
-CREATE UNIQUE INDEX posts_threads_likes_user_id_thread_id_udx ON posts_threads_likes(user_id, thread_id);
+CREATE UNIQUE INDEX posts_threads_likes_user_id_thread_id_udx ON posts_threads_likes(user_id, post_thread_id);
 CREATE INDEX posts_threads_likes_user_id_idx ON posts_threads_likes(user_id);
-CREATE INDEX posts_threads_likes_thread_id_idx ON posts_threads_likes(thread_id);
+CREATE INDEX posts_threads_likes_post_thread_id_idx ON posts_threads_likes(post_thread_id);
 CREATE INDEX posts_threads_likes_created_at_idx ON posts_threads_likes(created_at);
 
 
 DROP TABLE IF EXISTS thread_replies_likes CASCADE;
 CREATE TABLE IF NOT EXISTS thread_replies_likes (
-    reply_id INT NOT NULL,
+    thread_reply_id INT NOT NULL,
     CONSTRAINT thread_replies_likes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT thread_replies_likes_reply_id_fk FOREIGN KEY (reply_id) REFERENCES thread_replies(id) ON DELETE CASCADE
+    CONSTRAINT thread_replies_likes_thread_reply_id_fk FOREIGN KEY (thread_reply_id) REFERENCES thread_replies(id) ON DELETE CASCADE
 ) INHERITS (likes);
-CREATE UNIQUE INDEX thread_replies_likes_user_id_reply_id_udx ON thread_replies_likes(user_id, reply_id);
+CREATE UNIQUE INDEX thread_replies_likes_user_id_thread_reply_id_udx ON thread_replies_likes(user_id, thread_reply_id);
 CREATE INDEX thread_replies_likes_user_id_idx ON thread_replies_likes(user_id);
-CREATE INDEX thread_replies_likes_reply_id_idx ON thread_replies_likes(reply_id);
+CREATE INDEX thread_replies_likes_thread_reply_id_idx ON thread_replies_likes(thread_reply_id);
 CREATE INDEX thread_replies_likes_created_at_idx ON thread_replies_likes(created_at);
 
 
